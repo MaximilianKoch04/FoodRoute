@@ -1,0 +1,49 @@
+@model Proyecto.Models.DTO.RegistrationModel
+@{
+    Layout = "_Layout";
+}
+
+<main class="flex-1 p-6 max-w-xl mx-auto">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-8">
+        <h2 class="text-xl font-bold text-slate-800 mb-6">Registrar Nuevo Personal</h2>
+
+        <form asp-action="Registro" method="post" class="space-y-4">
+            <div>
+                <label class="text-sm font-semibold text-slate-700">Nombre Completo</label>
+                <input asp-for="NombreCompleto" class="w-full border border-slate-200 rounded-lg p-2.5 mt-1 focus:ring-2 focus:ring-brand/20 outline-none" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="text-sm font-semibold text-slate-700">Nombre de Usuario</label>
+                    <input asp-for="Username" class="w-full border border-slate-200 rounded-lg p-2.5 mt-1 focus:ring-2 focus:ring-brand/20 outline-none" />
+                </div>
+                <div>
+                    <label class="text-sm font-semibold text-slate-700">Email</label>
+                    <input asp-for="Email" type="email" class="w-full border border-slate-200 rounded-lg p-2.5 mt-1 focus:ring-2 focus:ring-brand/20 outline-none" />
+                </div>
+            </div>
+
+            <div>
+                <label class="text-sm font-semibold text-slate-700">Contraseña de Acceso</label>
+                <input asp-for="Password" type="password" class="w-full border border-slate-200 rounded-lg p-2.5 mt-1 focus:ring-2 focus:ring-brand/20 outline-none" />
+            </div>
+
+            <div>
+                <label class="text-sm font-semibold text-slate-700">Asignar Rol</label>
+                <select asp-for="Role" class="w-full border border-slate-200 rounded-lg p-2.5 mt-1 bg-slate-50 outline-none">
+                    <option value="Usuario">Operario / Usuario</option>
+                    <option value="Vendedor">Vendedor</option>
+                    <option value="Admin">Administrador</option>
+                </select>
+            </div>
+
+            <div class="pt-4 flex gap-3">
+                <button type="submit" class="flex-1 bg-brand text-white py-2.5 rounded-lg font-bold hover:bg-emerald-700 transition-all">
+                    Guardar Usuario
+                </button>
+                <a href="/UserAuth/Gestion" class="px-6 py-2.5 text-slate-500 hover:bg-slate-100 rounded-lg transition-colors">Volver</a>
+            </div>
+        </form>
+    </div>
+</main>

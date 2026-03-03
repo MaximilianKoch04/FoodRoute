@@ -65,5 +65,10 @@ namespace Proyecto.Models.Domain
         public DbSet<RemitoIngreso> RemitosIngreso { get; set; }
         public DbSet<DetalleIngreso> DetallesIngreso { get; set; }
         public DbSet<BajaPorMerma> BajasPorMerma { get; set; }
+
+        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<LineaDePedido> LineasDePedido { get; set; }
+
+        public DbSet<Cliente> Clientes { get; set; }
     }
 }

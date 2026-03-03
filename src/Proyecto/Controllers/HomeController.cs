@@ -6,22 +6,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore; // Clave para usar .Include()
 using Proyecto.Models.Domain; // Para que reconozca DBContext y Lote
 using Proyecto.Strategies; // Para que reconozca tus clases del Patrón Strategy
+using Proyecto.Models.Emuns; // Para que reconozca el enum EstadoLote
+using Microsoft.AspNetCore.Authorization; // Para usar [Authorize]
 
 namespace Proyecto.Controllers
-{
+{   
+    [Authorize]
     public class HomeController(DBContext context) : Controller
     {
         // 1. Variable para guardar la conexión a la base de datos
         private readonly DBContext _context = context;
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            // 3. Vamos a la BD y traemos todos los lotes sembrados, incluyendo su Producto
-            var lotes = _context.Lotes
-                                .Include(l => l.Producto)
-                                .ToList();
+           var lotes = await _context.Lotes.Include(l => l.Producto).ToListAsync();
 
-            // 4. Aplicamos el PATRÓN STRATEGY para calcular los vencimientos (FEFO)
+    // Calculamos los datos para las tarjetas
+    ViewBag.StockTotal = lotes.Sum(l => l.StockActualLote);
+    ViewBag.ProximosAVencer = lotes.Count(l => l.Estado == EstadoLote.ProximoAVencer);
+    ViewBag.LotesVencidos = lotes.Count(l => l.Estado == EstadoLote.Vencido);
+
+
             foreach (var lote in lotes)
             {
                 IEvaluadorEstadoStrategy estrategia;

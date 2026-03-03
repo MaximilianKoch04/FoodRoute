@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proyecto.Models.Domain;
 
@@ -11,9 +12,11 @@ using Proyecto.Models.Domain;
 namespace Proyecto.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20260302235937_Cliente")]
+    partial class Cliente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -324,38 +327,6 @@ namespace Proyecto.Migrations
                     b.ToTable("Clientes");
                 });
 
-            modelBuilder.Entity("Proyecto.Models.Domain.LineaDePedido", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CantidadSolicitada")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PedidoId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("PrecioUnitarioHistorico")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductoId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("SubtotalLinea")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PedidoId");
-
-                    b.HasIndex("ProductoId");
-
-                    b.ToTable("LineaDePedido");
-                });
-
             modelBuilder.Entity("Proyecto.Models.Domain.Lote", b =>
                 {
                     b.Property<int>("IdLote")
@@ -388,47 +359,6 @@ namespace Proyecto.Migrations
                     b.HasIndex("IdProducto");
 
                     b.ToTable("Lotes");
-                });
-
-            modelBuilder.Entity("Proyecto.Models.Domain.Pedido", b =>
-                {
-                    b.Property<int>("Idpedido")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Idpedido"));
-
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EstadoActual")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaEmision")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("FechaEntregaEstimada")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("FormaPago")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("SubtotalBruto")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalFinal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("VendedorId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Idpedido");
-
-                    b.HasIndex("ClienteId");
-
-                    b.HasIndex("VendedorId");
-
-                    b.ToTable("Pedido");
                 });
 
             modelBuilder.Entity("Proyecto.Models.Domain.Producto", b =>
@@ -593,25 +523,6 @@ namespace Proyecto.Migrations
                     b.Navigation("Lote");
                 });
 
-            modelBuilder.Entity("Proyecto.Models.Domain.LineaDePedido", b =>
-                {
-                    b.HasOne("Proyecto.Models.Domain.Pedido", "Pedido")
-                        .WithMany("Lineas")
-                        .HasForeignKey("PedidoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Proyecto.Models.Domain.Producto", "Producto")
-                        .WithMany()
-                        .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Pedido");
-
-                    b.Navigation("Producto");
-                });
-
             modelBuilder.Entity("Proyecto.Models.Domain.Lote", b =>
                 {
                     b.HasOne("Proyecto.Models.Domain.Producto", "Producto")
@@ -623,23 +534,6 @@ namespace Proyecto.Migrations
                     b.Navigation("Producto");
                 });
 
-            modelBuilder.Entity("Proyecto.Models.Domain.Pedido", b =>
-                {
-                    b.HasOne("Proyecto.Models.Domain.Cliente", "Cliente")
-                        .WithMany("Pedidos")
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Proyecto.Models.Domain.ApplicationUser", "Vendedor")
-                        .WithMany()
-                        .HasForeignKey("VendedorId");
-
-                    b.Navigation("Cliente");
-
-                    b.Navigation("Vendedor");
-                });
-
             modelBuilder.Entity("Proyecto.Models.Domain.RemitoIngreso", b =>
                 {
                     b.HasOne("Proyecto.Models.Domain.Proveedor", "Proveedor")
@@ -649,16 +543,6 @@ namespace Proyecto.Migrations
                         .IsRequired();
 
                     b.Navigation("Proveedor");
-                });
-
-            modelBuilder.Entity("Proyecto.Models.Domain.Cliente", b =>
-                {
-                    b.Navigation("Pedidos");
-                });
-
-            modelBuilder.Entity("Proyecto.Models.Domain.Pedido", b =>
-                {
-                    b.Navigation("Lineas");
                 });
 
             modelBuilder.Entity("Proyecto.Models.Domain.Producto", b =>

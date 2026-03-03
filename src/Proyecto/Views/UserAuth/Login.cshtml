@@ -1,0 +1,112 @@
+@model Proyecto.Models.DTO.LoginModel;
+@{
+    
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FoodRoute - Iniciar Sesión</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+<main class="min-h-screen flex items-center justify-center bg-stone-100 px-4 py-12">
+  <div class="w-full max-w-md mx-auto">
+
+    <!-- Card -->
+    <div class="bg-white rounded-xl shadow-lg shadow-black/5 border border-gray-200 px-8 py-10 sm:px-10 sm:py-12">
+
+      <!-- Logo: SVG inline + texto, sin imágenes externas -->
+      <div class="flex items-center justify-center gap-3 mb-8">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+             stroke-linejoin="round" class="w-9 h-9 text-emerald-700" aria-hidden="true">
+          <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+          <path d="M7 2v20" />
+          <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
+        </svg>
+        <span class="text-3xl font-bold text-emerald-700">FoodRoute</span>
+      </div>
+
+      <!-- Título y subtítulo -->
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-semibold tracking-tight text-gray-900">Iniciar sesión</h1>
+        <p class="text-gray-500 text-sm mt-2 leading-relaxed">Ingresa tus credenciales para acceder al sistema</p>
+      </div>
+
+      <!-- Resumen de validación -->
+      <div asp-validation-summary="ModelOnly"
+           class="mb-6 rounded-lg border border-red-300/50 bg-red-50 p-4 text-sm text-red-600"
+           role="alert"></div>
+
+      <!-- Formulario -->
+      <form asp-controller="UserAuth" asp-action="Login" method="post" class="flex flex-col gap-5">
+
+        <!-- Campo Usuario -->
+        <div class="flex flex-col gap-1.5">
+          <label asp-for="Username" class="text-sm font-medium text-gray-900">Usuario</label>
+          <input asp-for="Username" type="text" autocomplete="username"
+                 placeholder="Ingresa tu nombre de usuario"
+                 class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-sky-600" />
+          <span asp-validation-for="Username" class="text-xs text-red-600 mt-1"></span>
+        </div>
+
+        <!-- Campo Contraseña -->
+        <div class="flex flex-col gap-1.5">
+          <label asp-for="Password" class="text-sm font-medium text-gray-900">Contraseña</label>
+          <div class="relative">
+            <input asp-for="Password" type="password" id="Password" autocomplete="current-password"
+                   placeholder="Ingresa tu contraseña"
+                   class="w-full rounded-lg border border-gray-300 bg-white px-4 pr-11 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-sky-600" />
+            <button type="button" onclick="togglePassword()" aria-label="Mostrar contraseña"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                   stroke-linejoin="round" class="w-4 h-4" aria-hidden="true">
+                <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+          <span asp-validation-for="Password" class="text-xs text-red-600 mt-1"></span>
+        </div>
+
+        <!-- Botón Iniciar sesión -->
+        <button type="submit"
+                class="w-full rounded-lg bg-sky-600 py-2.5 text-sm font-medium text-white transition-colors hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:ring-offset-2 focus:ring-offset-white mt-1">
+          Iniciar sesión
+        </button>
+      </form>
+
+      <!-- Enlace contraseña olvidada -->
+      <div class="mt-5 text-center">
+        <a href="#" class="text-sm text-sky-600 hover:text-sky-700 transition-colors hover:underline">
+          ¿Olvidaste tu contraseña?
+        </a>
+      </div>
+    </div>
+
+    @if (TempData["Msg"] != null)
+    {
+      <div class="mb-6 rounded-lg border border-red-300/50 bg-red-50 p-4 text-sm text-red-600">
+        @TempData["Msg"]
+      </div>
+    }
+
+    <!-- Pie de página -->
+    <p class="text-center text-xs text-gray-400 mt-6">FoodRoute &copy; 2025. Todos los derechos reservados.</p>
+  </div>
+</main>
+
+<script>
+  function togglePassword() {
+    const input = document.getElementById('Password');
+    input.type = input.type === 'password' ? 'text' : 'password';
+  }
+</script>
+
+</body>
+</html>

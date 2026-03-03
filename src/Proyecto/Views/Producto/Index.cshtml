@@ -4,6 +4,17 @@
 }
 
 <main class="flex-1 overflow-y-auto p-6">
+    @if (TempData["Error"] != null)
+    {   
+    <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-r shadow-sm">
+        <div class="flex items-center">
+            <svg class="h-5 w-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.78 7.5a.75.75 0 011.44 0v4.5a.75.75 0 01-1.44 0v-4.5zM10 15a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
+            </svg>
+            <p class="text-sm text-red-700 font-medium">@TempData["Error"]</p>
+        </div>
+    </div>
+    }
     <div class="mb-6 flex justify-between items-center">
         <div>
             <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Catálogo de Productos</h1>
@@ -40,9 +51,9 @@
             
             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <div class="flex justify-end gap-2">
-                    <a href="/Lote/CrearRápido?productoId=@item.IdProducto " class="text-emerald-600 hover:text-emerald-900 bg-emerald-50 px-2 py-1 rounded">
-                        + Stock
-                    </a>
+                    <a href="/Lote/Crear?productoId=@item.IdProducto" class="text-emerald-600 hover:text-emerald-900 bg-emerald-50 px-2 py-1 rounded">
+    + Stock
+</a>
                     <a href="/Producto/Editar/@item.IdProducto" class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-2 py-1 rounded">
                         Editar
                     </a>

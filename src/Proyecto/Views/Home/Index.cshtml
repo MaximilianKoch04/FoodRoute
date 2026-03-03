@@ -5,178 +5,92 @@
     Layout = "_Layout";
 }
 
-<!-- ===== CONTENT ===== -->
-    <main class="flex-1 overflow-y-auto p-6">
-      <!-- Page Title -->
-      <div class="mb-6">
+<main class="flex-1 overflow-y-auto p-6">
+    <div class="mb-6">
         <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Panel de Control de Inventario (FEFO)</h1>
         <p class="text-sm text-slate-500 mt-1">Gestión de stock con criterio First Expired, First Out</p>
-      </div>
+    </div>
 
-      <!-- ===== SUMMARY CARDS ===== -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
 
-        
-
-        <!-- Card 1: Stock Físico Total -->
-        <div class="bg-white rounded-xl border border-slate-200 p-5 hover:shadow-md transition-shadow">
-          <div class="flex items-start justify-between">
-            <div>
-              <p class="text-sm font-medium text-slate-500">Stock Físico Total</p>
-              <p class="text-3xl font-bold text-slate-800 mt-2">12,450</p>
-              <p class="text-sm text-slate-500 mt-1">kilogramos en nave</p>
-            </div>
-            <div class="w-11 h-11 bg-emerald-50 rounded-lg flex items-center justify-center shrink-0">
-              <svg class="w-6 h-6 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
-              </svg>
-            </div>
-          </div>
-          <div class="mt-4 flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-            </svg>
-            <span class="text-xs font-medium text-emerald-600">+8.2% vs. semana anterior</span>
-          </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <p class="text-sm font-medium text-slate-500">Stock Físico Total</p>
+            <p class="text-3xl font-bold text-slate-800 mt-2">@ViewBag.StockTotal.ToString("N0")</p>
+            <p class="text-sm text-slate-500 mt-1">kilogramos en nave</p>
         </div>
 
-        <!-- Card 2: Lotes Próximos a Vencer -->
-        <div class="bg-white rounded-xl border border-red-200 p-5 hover:shadow-md transition-shadow">
-          <div class="flex items-start justify-between">
-            <div>
-              <p class="text-sm font-medium text-slate-500">Lotes Próximos a Vencer</p>
-              <p class="text-3xl font-bold text-red-600 mt-2">7</p>
-              <p class="text-sm text-red-500 mt-1 font-medium">Requieren atención urgente</p>
-            </div>
-            <div class="w-11 h-11 bg-red-50 rounded-lg flex items-center justify-center shrink-0">
-              <svg class="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-          </div>
-          <div class="mt-4 flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-            </svg>
-            <span class="text-xs font-medium text-red-600">3 vencen en menos de 48hs</span>
-          </div>
+        <div class="bg-white rounded-xl border border-red-200 p-5 shadow-sm">
+            <p class="text-sm font-medium text-slate-500">Lotes Próximos a Vencer</p>
+            <p class="text-3xl font-bold text-red-600 mt-2">@ViewBag.ProximosAVencer</p>
+            <p class="text-sm text-red-500 mt-1 font-medium">Requieren atención urgente</p>
         </div>
 
-        <!-- Card 3: Remitos de Hoy -->
-        <div class="bg-white rounded-xl border border-slate-200 p-5 hover:shadow-md transition-shadow">
-          <div class="flex items-start justify-between">
-            <div>
-              <p class="text-sm font-medium text-slate-500">Remitos de Hoy</p>
-              <p class="text-3xl font-bold text-slate-800 mt-2">4</p>
-              <p class="text-sm text-slate-500 mt-1">remitos procesados</p>
-            </div>
-            <div class="w-11 h-11 bg-emerald-50 rounded-lg flex items-center justify-center shrink-0">
-              <svg class="w-6 h-6 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.142-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-              </svg>
-            </div>
-          </div>
-          <div class="mt-4 flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span class="text-xs font-medium text-emerald-600">Todos verificados</span>
-          </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <p class="text-sm font-medium text-slate-500">Remitos de Hoy</p>
+            <p class="text-3xl font-bold text-slate-800 mt-2">4</p>
+            <p class="text-sm text-slate-500 mt-1">remitos procesados</p>
         </div>
-      </div>
 
-      <!-- ===== TABLE ===== -->
-      <div class="bg-white rounded-xl border border-slate-200">
-        <!-- Table Header -->
+    </div> <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-          <div>
             <h2 class="text-base font-semibold text-slate-800">Últimos Lotes Ingresados</h2>
-            <p class="text-xs text-slate-500 mt-0.5">Ordenados por fecha de vencimiento (FEFO)</p>
-          </div>
-          <button class="inline-flex items-center gap-2 px-3.5 py-2 text-sm font-medium text-brand bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-colors">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-            </svg>
-            Exportar
-          </button>
         </div>
 
-        <!-- Table -->
         <div class="overflow-x-auto">
-          <table class="w-full">
-            <thead>
-              <tr class="bg-slate-50/80">
-                <th class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider px-6 py-3">ID Lote</th>
-                <th class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider px-6 py-3">Producto</th>
-                <th class="text-right text-xs font-semibold text-slate-500 uppercase tracking-wider px-6 py-3">Cantidad (Kg)</th>
-                <th class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider px-6 py-3">Fecha de Vencimiento</th>
-                <th class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider px-6 py-3">Estado</th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-    @foreach (var lote in Model)
-    {
-        // 1. Lógica del algoritmo FEFO para los colores de Tailwind
-        string colorFondo = "";
-        string colorTexto = "";
-        string textoEstado = "";
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="bg-slate-50/80">
+                        <th class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-6 py-3">ID Lote</th>
+                        <th class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-6 py-3">Producto</th>
+                        <th class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-6 py-3">Fecha de Vencimiento</th>
+                        <th class="text-right text-xs font-semibold text-slate-500 uppercase tracking-wider px-6 py-3">Cantidad (Kg)</th>
+                        <th class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-6 py-3">Estado</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @foreach (var lote in Model)
+                    {
+                        string colorFondo = "";
+                        string colorTexto = "";
+                        string textoEstado = "";
 
-        if (lote.Estado == EstadoLote.Disponible) 
-        {
-            colorFondo = "bg-green-100";
-            colorTexto = "text-green-800";
-            textoEstado = "Vigente";
-        }
-        else if (lote.Estado == EstadoLote.ProximoAVencer) 
-        {
-            colorFondo = "bg-yellow-100";
-            colorTexto = "text-yellow-800";
-            textoEstado = "Por Vencer";
-        }
-        else if (lote.Estado == EstadoLote.Vencido) 
-        {
-            colorFondo = "bg-red-100";
-            colorTexto = "text-red-800";
-            textoEstado = "Vencido";
-        }
+                        if (lote.Estado == EstadoLote.Disponible)
+                        {
+                            colorFondo = "bg-green-100";
+                            colorTexto = "text-green-800";
+                            textoEstado = "Vigente";
+                        }
+                        else if (lote.Estado == EstadoLote.ProximoAVencer)
+                        {
+                            colorFondo = "bg-yellow-100";
+                            colorTexto = "text-yellow-800";
+                            textoEstado = "Por Vencer";
+                        }
+                        else if (lote.Estado == EstadoLote.Vencido)
+                        {
+                            colorFondo = "bg-red-100";
+                            colorTexto = "text-red-800";
+                            textoEstado = "Vencido";
+                        }
 
-        // 2. Dibujamos el renglón HTML con los datos reales
-        <tr>
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                @lote.CodigoLote
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                @lote.Producto.Nombre
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                @lote.FechaVencimiento.ToString("dd/MM/yyyy")
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                @lote.StockActualLote kg
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @colorFondo @colorTexto">
-                    @textoEstado
-                </span>
-            </td>
-        </tr>
-    }
-</tbody>
-          </table>
+                        <tr>
+                            <td class="px-6 py-4 text-sm font-medium text-gray-900">@lote.CodigoLote</td>
+                            <td class="px-6 py-4 text-sm text-gray-500">@lote.Producto.Nombre</td>
+                            <td class="px-6 py-4 text-sm text-gray-500">@lote.FechaVencimiento.ToString("dd/MM/yyyy")</td>
+                            <td class="px-6 py-4 text-sm text-gray-500 text-right">@lote.StockActualLote kg</td>
+                            <td class="px-6 py-4">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @colorFondo @colorTexto">
+                                    @textoEstado
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
 
-        <!-- Table Footer -->
-        <div class="px-6 py-3.5 border-t border-slate-100 flex items-center justify-between">
-          <p class="text-xs text-slate-500">Mostrando 5 de 42 lotes</p>
-          <div class="flex items-center gap-1">
-            <button class="px-3 py-1.5 text-xs font-medium text-slate-500 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors">Anterior</button>
-            <button class="px-3 py-1.5 text-xs font-medium text-white bg-brand rounded-lg">1</button>
-            <button class="px-3 py-1.5 text-xs font-medium text-slate-500 hover:bg-slate-100 rounded-lg transition-colors">2</button>
-            <button class="px-3 py-1.5 text-xs font-medium text-slate-500 hover:bg-slate-100 rounded-lg transition-colors">3</button>
-            <button class="px-3 py-1.5 text-xs font-medium text-slate-500 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors">Siguiente</button>
-          </div>
+        <div class="px-6 py-3.5 border-t border-slate-100">
+            <p class="text-xs text-slate-500">Mostrando @Model.Count() lotes activos</p>
         </div>
-      </div>
-    </main>
-  </div>
-</html>
+    </div>
+</main>

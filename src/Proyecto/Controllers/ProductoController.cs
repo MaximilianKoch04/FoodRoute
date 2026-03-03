@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto.Models.Domain;
+using Microsoft.AspNetCore.Authorization; // Para usar [Authorize]
 
 namespace Proyecto.Controllers
-{
+{   [Authorize]
     public class ProductoController : Controller 
     {
         private readonly DBContext _context;
@@ -83,18 +84,28 @@ namespace Proyecto.Controllers
         // ==========================================
         // 3. ELIMINAR (Borra el producto directo)
         // ==========================================
+        // ==========================================
+        // 3. ELIMINAR (Con red de seguridad SQL)
+        // ==========================================
         [HttpPost]
         public IActionResult Eliminar(int id)
         {
             var producto = _context.Productos.Find(id);
-            
             if (producto != null)
             {
-                _context.Productos.Remove(producto);
-                _context.SaveChanges(); // ¡Lo borra de SQL Server!
+                try
+                {
+                    _context.Productos.Remove(producto);
+                    _context.SaveChanges(); 
+                }
+                catch (Exception) // <-- Esta es la red gigante que atrapa la explosión de la foto
+                {
+                    // Le mandamos el mensaje a la vista
+                    TempData["Error"] = "No podés eliminar este producto porque actualmente tiene Lotes (stock) en el depósito.";
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            
-            return RedirectToAction(nameof(Index)); // Vuelve al catálogo actualizado
+            return RedirectToAction(nameof(Index));
         }
     }
 }

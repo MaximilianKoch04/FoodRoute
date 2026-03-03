@@ -1,0 +1,71 @@
+@using Proyecto.Models.Domain
+@model IEnumerable<Proveedor>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Gestión de Proveedores";
+}
+
+<main class="flex-1 overflow-y-auto p-6">
+    <div class="mb-6 flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Proveedores</h1>
+            <p class="text-sm text-slate-500 mt-1">Directorio de contactos y empresas que abastecen a FoodRoute</p>
+        </div>
+        
+        <a href="/Proveedor/Crear" class="inline-flex items-center gap-2 bg-brand hover:bg-emerald-700 text-white px-4 py-2.5 rounded-lg font-medium transition-colors shadow-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Nuevo Proveedor
+        </a>
+    </div>
+
+    @if (TempData["Msg"] != null)
+    {
+        <div class="mb-6 p-4 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-medium flex items-center gap-2">
+            @TempData["Msg"]
+        </div>
+    }
+
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="bg-slate-50/80 border-b border-slate-200">
+                        <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Nombre del Contacto</th>
+                        <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Razón Social</th>
+                        <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">CUIT</th>
+                        <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Teléfono</th>
+                        <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @foreach (var prov in Model)
+                    {
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 text-sm font-semibold text-slate-800">@prov.Nombre</td>
+                            <td class="px-6 py-4 text-sm text-slate-600">@prov.RazonSocial</td>
+                            <td class="px-6 py-4 text-sm text-slate-500">@prov.Cuit</td>
+                            <td class="px-6 py-4 text-sm text-slate-500">@prov.Telefono</td>
+                            <td class="px-6 py-4 text-right space-x-2">
+                                <a href="/Proveedor/Editar/@prov.IdProveedor" class="inline-block px-3 py-1.5 bg-amber-50 text-amber-600 hover:bg-amber-100 rounded-md text-sm font-medium transition-colors">
+                                    Editar
+                                </a>
+                                <form asp-action="Eliminar" asp-route-id="@prov.IdProveedor" method="post" class="inline-block" onsubmit="return confirm('¿Estás seguro de que querés eliminar este proveedor?');">
+                                    <button type="submit" class="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-md text-sm font-medium transition-colors">
+                                        Borrar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex justify-between items-center">
+            <p class="text-xs text-slate-500">Total de proveedores registrados: @Model.Count()</p>
+        </div>
+    </div>
+</main>

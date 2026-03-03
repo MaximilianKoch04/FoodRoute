@@ -1,12 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using Proyecto.Models.Domain;
 using Microsoft.AspNetCore.Identity;
+using Proyecto.Repositories.Abstract;
+using Proyecto.Repositories.Implementation;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IUserAuthService, UserAuthService>();
+builder.Services.AddScoped<IProveedorService, ProveedorService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
 // --- ACÁ VA LA CONFIGURACIÓN QUE ENCONTRASTE ---
 builder.Services.AddDbContext<DBContext>(opt =>
 {
@@ -23,6 +29,15 @@ builder.Services.AddDbContext<DBContext>(opt =>
 builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
     .AddEntityFrameworkStores<DBContext>()
     .AddDefaultTokenProviders();
+
+    builder.Services.ConfigureApplicationCookie(options =>
+{
+    // Le decimos que nuestro Login está en UserAuth, no en Account
+    options.LoginPath = "/UserAuth/Login";
+    
+    // Ruta por si un usuario intenta entrar a donde no tiene permiso (ej. un Vendedor a la vista del Admin)
+    options.AccessDeniedPath = "/UserAuth/AccesoDenegado"; 
+});
 
 
 var app = builder.Build();

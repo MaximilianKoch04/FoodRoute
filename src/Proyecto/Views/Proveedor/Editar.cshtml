@@ -1,0 +1,54 @@
+@model Proyecto.Models.Domain.Proveedor
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Editar Proveedor";
+}
+
+<main class="flex-1 p-6 max-w-3xl mx-auto">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-8 mt-4">
+        <h2 class="text-2xl font-bold text-slate-800 mb-2">Editar Proveedor</h2>
+        <p class="text-slate-500 text-sm mb-6">Actualizá los datos de @Model.RazonSocial.</p>
+
+        <form asp-action="Editar" method="post" class="space-y-5">
+            <div asp-validation-summary="ModelOnly" class="text-sm text-red-600 font-medium"></div>
+            
+            <input type="hidden" asp-for="IdProveedor" />
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Nombre del Contacto *</label>
+                    <input asp-for="Nombre" class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-brand/20 outline-none" required />
+                    <span asp-validation-for="Nombre" class="text-red-500 text-xs mt-1"></span>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Razón Social *</label>
+                    <input asp-for="RazonSocial" class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-brand/20 outline-none" required />
+                    <span asp-validation-for="RazonSocial" class="text-red-500 text-xs mt-1"></span>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">CUIT *</label>
+                    <input asp-for="Cuit" class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-brand/20 outline-none" required />
+                    <span asp-validation-for="Cuit" class="text-red-500 text-xs mt-1"></span>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Teléfono</label>
+                    <input asp-for="Telefono" class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-brand/20 outline-none" />
+                    <span asp-validation-for="Telefono" class="text-red-500 text-xs mt-1"></span>
+                </div>
+            </div>
+
+            <div class="pt-6 flex gap-3 border-t border-slate-100 mt-6">
+                <button type="submit" class="bg-amber-500 text-white px-6 py-2.5 rounded-lg font-bold hover:bg-amber-600 transition-colors">
+                    Actualizar Datos
+                </button>
+                <a asp-action="Index" class="px-6 py-2.5 text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg font-medium transition-colors">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</main>

@@ -16,12 +16,20 @@ namespace Proyecto.Models.Domain
                                             UserManager<ApplicationUser> usuarioManager, 
                                             RoleManager<IdentityRole> roleManager)
         {
-            
-        if (!roleManager.Roles.Any())
-        {
-            await roleManager.CreateAsync(new IdentityRole("ADMIN"));
 
-        }
+        
+        string? roleAdmin = "Admin";
+string? roleVendedor = "Vendedor";
+string? roleUsuario = "Usuario";
+            
+        if (!await roleManager.RoleExistsAsync(roleAdmin))
+        await roleManager.CreateAsync(new IdentityRole(roleAdmin));
+
+        if (!await roleManager.RoleExistsAsync(roleVendedor))
+        await roleManager.CreateAsync(new IdentityRole(roleVendedor));
+
+        if (!await roleManager.RoleExistsAsync(roleUsuario))
+        await roleManager.CreateAsync(new IdentityRole(roleUsuario));
 
         if (!usuarioManager.Users.Any())
         {
@@ -29,11 +37,15 @@ namespace Proyecto.Models.Domain
             {
                 Nombre_completo = "Maximiliano Koch",
                 UserName = "Maxi.Koch",
-                Email = "maxi.koch@gmail.com"
+                Email = "maxi.koch@gmail.com",
+                EmailConfirmed = true,
             };
 
-            await usuarioManager.CreateAsync(usuario, "Admin2468$");
-            await usuarioManager.AddToRoleAsync(usuario, "ADMIN");
+           var resultado = await usuarioManager.CreateAsync(usuario, "Admin2468$");
+            if (resultado.Succeeded)
+            {
+                await usuarioManager.AddToRoleAsync(usuario, roleAdmin);
+            }
         }
 
         if (!context.Proveedores.Any())
